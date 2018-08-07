@@ -15,7 +15,9 @@ case class SlackEventStructure (
   authed_users: Option[List[String]],
   event_id: String,
   event_time: Long
-)
+){
+  def authed = authed_users orElse authed_teams
+}
 
 case class EventServerChallenge (
   token: String,
@@ -37,21 +39,22 @@ case class Message (
   thread_ts: Option[String]
 ) extends SlackEvent
 
-case class EditMessage (
+case class SubRefMessage (
   user: String,
   text: String,
   ts:String
 )
 
 case class MessageChanged (
-  message: EditMessage,
-  previous_message: EditMessage,
+  message: SubRefMessage,
+  previous_message: SubRefMessage,
   ts: String,
   event_ts: String,
   channel: String
 ) extends SlackEvent
 
 case class MessageDeleted (
+  previous_message: SubRefMessage,
   ts: String,
   deleted_ts: String,
   event_ts: String,

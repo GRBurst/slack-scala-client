@@ -75,7 +75,7 @@ package object models {
   implicit val helloFmt = Json.format[Hello]
   implicit val messageFmt = Json.format[Message]
   implicit val messageReply = Json.format[Reply]
-  implicit val editMessageFmt = Json.format[EditMessage]
+  implicit val subRefMessageFmt = Json.format[SubRefMessage]
   implicit val botMessageFmt = Json.format[BotMessage]
   implicit val messageChangedFmt = Json.format[MessageChanged]
   implicit val messageDeletedFmt = Json.format[MessageDeleted]
