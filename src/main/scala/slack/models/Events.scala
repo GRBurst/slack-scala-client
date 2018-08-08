@@ -36,7 +36,9 @@ case class Message (
   user: String,
   text: String,
   is_starred: Option[Boolean],
-  thread_ts: Option[String]
+  thread_ts: Option[String],
+  client_msg_id: Option[String],
+  bot_id: Option[String]
 ) extends SlackEvent
 
 case class SubRefMessage (
