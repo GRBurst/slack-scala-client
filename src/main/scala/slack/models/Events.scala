@@ -42,7 +42,9 @@ case class Message (
 case class SubRefMessage (
   user: String,
   text: String,
-  ts:String
+  ts: String,
+  client_msg_id: Option[String],
+  bot_id: Option[String]
 )
 
 case class MessageChanged (
