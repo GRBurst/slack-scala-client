@@ -35,6 +35,7 @@ case class Message (
   channel: String,
   user: String,
   text: String,
+  channel_type: String,
   is_starred: Option[Boolean],
   thread_ts: Option[String],
   client_msg_id: Option[String],
@@ -80,12 +81,13 @@ case class MessageWithSubtype (
  channel: String,
  user: String,
  text: String,
+ channel_type: String,
  is_starred: Option[Boolean],
  messageSubType: MessageSubtype
 ) extends SlackEvent
 
 sealed trait MessageSubtype {
-  def subtype: String
+  val subtype: String
 }
 
 object MessageSubtypes {
@@ -98,7 +100,7 @@ object MessageSubtypes {
   }
 
   case class ChannelNameMessage(
-    oldname: String,
+    old_name: String,
     name: String
   ) extends MessageSubtype {
     val subtype = "channel_name"

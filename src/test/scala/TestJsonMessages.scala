@@ -33,6 +33,7 @@ class TestJsonMessages extends FunSuite with Matchers {
   "subtype": "channel_join",
   "text": "<@U0A2DCEBS|lol_bot> has joined the channel",
   "channel": "C0A77NJ22",
+  "channel_type": "channel",
   "ts": "1441463918.000003"
 }""")
 
@@ -185,7 +186,7 @@ class TestJsonMessages extends FunSuite with Matchers {
         |   "file": { "id": "F1FVBN542", "created":1465567656, "timestamp": 1465569974, "name":"test-file", "title":"test-title",
         |   "mimetype":"image/png","filetype":"image/png","pretty_type":"test", "user":"U1234", "mode":"test-mode",
         |   "editable":false,"is_external":false, "external_type":"etype", "size":2000}, "team": "T0W6887JS",
-        |         "type": "message", "channel": "G172PTNSH"}""".stripMargin)
+        |         "type": "message", "channel": "G172PTNSH", "channel_type": "channel"}""".stripMargin)
     val ev = json.as[SlackEvent]
     assert(ev.asInstanceOf[MessageWithSubtype].messageSubType.equals(FileShareMessage(SlackFile("F1FVBN542",
       1465567656, 1465569974, Some("test-file"), "test-title", "image/png", "image/png",
@@ -235,7 +236,7 @@ class TestJsonMessages extends FunSuite with Matchers {
         |"team":"T0P3TAZ7Y","inviter":"U024BE7LH","event_ts":"1521143660.000263",
         |"ts":"1521143660.000263"}""".stripMargin)
     val ev = json.as[MemberJoined]
-    ev.inviter should be ("U024BE7LH")
+    ev.inviter should be (Some("U024BE7LH"))
   }
 
 }

@@ -264,6 +264,7 @@ package object models {
             MessageWithSubtype(
               (jsValue \ "ts").as[String],
               (jsValue \ "channel").as[String],
+              (jsValue \ "channel_type").as[String],
               (jsValue \ "user").as[String],
               (jsValue \ "text").as[String],
               (jsValue \ "is_starred").asOpt[Boolean],
