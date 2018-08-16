@@ -12,3 +12,10 @@ case class Team (
   prefs: JsValue,
   plan: String
 )
+
+case class TeamInfo (
+                      id: String,
+                      name: String,
+                      domain:String,
+                      email_domain: String,
+                    )

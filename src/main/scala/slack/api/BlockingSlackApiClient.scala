@@ -335,7 +335,7 @@ class BlockingSlackApiClient(token: String, duration: FiniteDuration = 5.seconds
     resolve(client.getTeamAccessLogs(count, page))
   }
 
-  def getTeamInfo()(implicit system: ActorSystem): JsValue = {
+  def getTeamInfo()(implicit system: ActorSystem): TeamInfo = {
     resolve(client.getTeamInfo())
   }
 

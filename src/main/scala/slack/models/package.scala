@@ -9,6 +9,7 @@ package object models {
   implicit val attachmentFmt = Json.format[Attachment]
   implicit val authIdentityFmt = Json.format[AuthIdentity]
   implicit val teamFmt = Json.format[Team]
+  implicit val teamInfoFmt = Json.format[TeamInfo]
   implicit val channelValueFmt = Json.format[ChannelValue]
   implicit val groupValueFmt = Json.format[GroupValue]
   implicit val imFmt = Json.format[Im]

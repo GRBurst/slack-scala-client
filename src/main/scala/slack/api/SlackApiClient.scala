@@ -585,8 +585,9 @@ class SlackApiClient(token: String) {
   }
 
   // TODO: Parse actual value type: https://api.slack.com/methods/team.info
-  def getTeamInfo()(implicit system: ActorSystem): Future[JsValue] = {
-    makeApiMethodRequest("team.info")
+  def getTeamInfo()(implicit system: ActorSystem): Future[TeamInfo] = {
+    val res = makeApiMethodRequest("team.info")
+    extract[TeamInfo](res, "team")
   }
 
 
