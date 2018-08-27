@@ -677,7 +677,7 @@ case class ApiError(code: String) extends Exception(code)
 
 case class HistoryChunk (
   latest: Option[String],
-  messages: Seq[JsValue],
+  messages: Seq[SubRefMessage],
   has_more: Boolean
 )
 
