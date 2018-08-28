@@ -43,7 +43,8 @@ case class HistoryMessage(
 case class HistoryBotMessage(
                               ts: String,
                               text: String,
-                              username: String
+                              bot_id: String,
+                              username: Option[String],
                             ) extends HistoryMessageType
 
 case class SubRefMessage (
