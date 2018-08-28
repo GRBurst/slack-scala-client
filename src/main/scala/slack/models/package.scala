@@ -75,6 +75,8 @@ package object models {
   // Event Formats
   implicit val helloFmt = Json.format[Hello]
   implicit val messageFmt = Json.format[Message]
+  implicit val historyMessageFmt = Json.format[HistoryMessage]
+  implicit val historyBotMessageFmt = Json.format[HistoryBotMessage]
   implicit val messageReply = Json.format[Reply]
   implicit val subRefMessageFmt = Json.format[SubRefMessage]
   implicit val botMessageFmt = Json.format[BotMessage]
@@ -277,6 +279,22 @@ package object models {
     }
   }
 
+  implicit val historyMessageTypeReads = new Reads[HistoryMessageType] {
+    def reads(jsValue: JsValue): JsResult[HistoryMessageType] = {
+      val etype = (jsValue \ "type").asOpt[String]
+      val subtype = (jsValue \ "subtype").asOpt[String]
+      if (etype.isDefined) {
+        etype.get match {
+          case "message" if subtype.contains("bot_message") => JsSuccess(jsValue.as[HistoryBotMessage])
+          case "message" => JsSuccess(jsValue.as[HistoryMessage])
+          case t: String => JsError(JsonValidationError("Invalid type property: {}", t))
+        }
+      } else {
+        JsError(JsonValidationError("Required (string) event type property is missing for MessageType."))
+      }
+    }
+  }
+
   implicit val slackEventReads = new Reads[SlackEvent] {
     def reads(jsValue: JsValue): JsResult[SlackEvent] = {
       val etype = (jsValue \ "type").asOpt[String]
@@ -363,6 +381,7 @@ package object models {
       }
     }
   }
+
   implicit val slackEventStructureFmt = Json.format[SlackEventStructure]
   implicit val eventServerChallengeFmt = Json.format[EventServerChallenge]
 }

@@ -29,6 +29,31 @@ case class Hello (
   `type`: String
 ) extends SlackEvent
 
+sealed trait HistoryMessageType {
+  def ts: String
+  def text: String
+}
+
+case class HistoryMessage(
+                           ts: String,
+                           text: String,
+                           user: String,
+                         ) extends HistoryMessageType
+
+case class HistoryBotMessage(
+                              ts: String,
+                              text: String,
+                              username: String
+                            ) extends HistoryMessageType
+
+case class SubRefMessage (
+                           user: String,
+                           text: String,
+                           ts: String,
+                           client_msg_id: Option[String],
+                           bot_id: Option[String]
+                         )
+
 // TODO: Message Sub-types
 case class Message (
   ts: String,
@@ -42,25 +67,15 @@ case class Message (
   bot_id: Option[String]
 ) extends SlackEvent
 
-case class SubRefMessage (
-  user: String,
-  text: String,
-  ts: String,
-  client_msg_id: Option[String],
-  bot_id: Option[String]
-)
-
 case class MessageChanged (
   message: SubRefMessage,
   previous_message: SubRefMessage,
-  ts: String,
   event_ts: String,
-  channel: String
+  channel: String,
 ) extends SlackEvent
 
 case class MessageDeleted (
   previous_message: SubRefMessage,
-  ts: String,
   deleted_ts: String,
   event_ts: String,
   channel: String

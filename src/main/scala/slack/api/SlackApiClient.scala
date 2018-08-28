@@ -20,7 +20,7 @@ object SlackApiClient {
 
   private[api] implicit val rtmStartStateFmt = Json.format[RtmStartState]
   private[api] implicit val accessTokenFmt = Json.format[AccessToken]
-  private[api] implicit val historyChunkFmt = Json.format[HistoryChunk]
+  private[api] implicit val historyChunkFmt = Json.reads[HistoryChunk]
   private[api] implicit val repliesChunkFmt = Json.format[RepliesChunk]
   private[api] implicit val pagingObjectFmt = Json.format[PagingObject]
   private[api] implicit val filesResponseFmt = Json.format[FilesResponse]
@@ -677,7 +677,7 @@ case class ApiError(code: String) extends Exception(code)
 
 case class HistoryChunk (
   latest: Option[String],
-  messages: Seq[SubRefMessage],
+  messages: Seq[HistoryMessageType],
   has_more: Boolean
 )
 
